@@ -80,6 +80,9 @@ public sealed partial class AlertLevelDetail
 
     // Sunrise added end
 
-    [DataField("emergencyLightSound")] public SoundSpecifier EmergencyLightSound { get; private set; } = new SoundPathSpecifier("/Audio/_Scp/Ambience/Emergency/alarm.ogg"); // Fire added
+    // Fire edit start
+    [DataField]
+    public SoundSpecifier EmergencyLightSound { get; private set; } = new SoundPathSpecifier("/Audio/_Scp/Ambience/Emergency/alarm.ogg");
+    // Fire edit end
 }
 
