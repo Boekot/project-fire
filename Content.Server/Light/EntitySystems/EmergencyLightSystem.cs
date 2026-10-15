@@ -4,7 +4,6 @@ using Content.Server.Light.Components;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Station.Systems;
-using Content.Shared.Audio; // Fire added
 using Content.Shared.Examine;
 using Content.Shared.Light;
 using Content.Shared.Light.Components;
@@ -111,11 +110,7 @@ public sealed partial class EmergencyLightSystem : SharedEmergencyLightSystem
             _pointLight.SetColor(uid, details.EmergencyLightColor, pointLight);
             _appearance.SetData(uid, EmergencyLightVisuals.Color, details.EmergencyLightColor, appearance);
 
-            // Fire added start
-            if (!TryComp<AmbientSoundComponent>(uid, out var ambientSoundComp))
-                return;
-            _ambient.SetSound(uid,details.EmergencyLightSound,ambientSoundComp);
-            // Fire added end
+            OnAlertLevelChangedFireAdded(uid, details); // Fire added
 
             if (details.ForceEnableEmergencyLights && !light.ForciblyEnabled)
             {
@@ -130,6 +125,8 @@ public sealed partial class EmergencyLightSystem : SharedEmergencyLightSystem
             }
         }
     }
+
+    partial void OnAlertLevelChangedFireAdded(EntityUid uid, AlertLevelDetail details); // Fire added
 
     public void SetState(EntityUid uid, EmergencyLightComponent component, EmergencyLightState state)
     {
